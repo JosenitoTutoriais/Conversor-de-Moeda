@@ -1,0 +1,14 @@
+{
+  "name": "conversor-moeda",
+  "version": "1.0.0",
+  "description": "Aplicativo Electron para conversão de moedas",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^27.0.0"
+  }
+}

@@ -1,0 +1,5 @@
+conversor-moeda/
+├── index.html
+├── main.js
+├── package.json
+└── preload.js (opcional)

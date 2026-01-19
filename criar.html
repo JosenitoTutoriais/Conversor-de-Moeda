@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guia: Transformar Conversor de Moeda em App Desktop com Electron</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #2d2dff;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      color: #2d2dff;
+    }
+
+    pre {
+      background-color: #eee;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .check {
+      color: green;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🚀 Transforme seu Conversor de Moeda em App Desktop com Electron.js</h1>
+  </header>
+
+  <main>
+    <h2><span class="check">✅</span>1. Estrutura de Pastas</h2>
+    <p>Crie a seguinte estrutura de arquivos:</p>
+    <pre><code>conversor-moeda/
+├── index.html
+├── main.js
+├── package.json
+└── preload.js (opcional)</code></pre>
+
+    <h2><span class="check">✅</span>2. Crie o <code>package.json</code></h2>
+    <p>Rode no terminal (dentro da pasta <code>conversor-moeda</code>):</p>
+    <pre><code>npm init -y</code></pre>
+    <p>Depois, instale o Electron:</p>
+    <pre><code>npm install electron --save-dev</code></pre>
+
+    <p>Depois, Instale o electron-builder:</p>
+    <pre><code>npm install --save-dev electron-builder</code></pre>
+
+    <p>Atualize o <code>package.json</code> para incluir o ponto de entrada:</p>
+    <pre><code>
+    {
+{
+    "name": "conversor-moeda",
+    "version": "1.0.0",
+    "description": "Aplicativo Electron para conversão de moedas",
+    "main": "main.js",
+    "scripts": {
+    "start": "electron ."
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+    "electron": "^27.0.0"
+    }
+}
+
+}</code></pre>
+
+    <h2><span class="check">✅</span>3. Crie o <code>main.js</code></h2>
+    <p>Esse arquivo inicializa a janela do app:</p>
+    <pre><code>const { app, BrowserWindow } = require('electron');
+const path = require('path');
+
+function createWindow() {
+    const win = new BrowserWindow({
+        width: 500,
+        height: 700,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'), // opcional
+        },
+    });
+
+    win.loadFile('index.html');
+    // win.webContents.openDevTools(); // descomente para depurar
+}
+
+app.whenReady().then(createWindow);
+
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') app.quit();
+});
+
+app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+});</code></pre>
+
+    <h2><span class="check">✅</span>4. (Opcional) <code>preload.js</code></h2>
+    <p>Arquivo opcional para acessar o DOM com segurança:</p>
+    <pre><code>// preload.js
+window.addEventListener('DOMContentLoaded', () => {
+    // Aqui você pode acessar o DOM se quiser
+});</code></pre>
+
+    <h2><span class="check">✅</span>5. Use seu <code>index.html</code></h2>
+    <p>Pegue o HTML do conversor de moeda e salve como <code>index.html</code> no mesmo diretório.</p>
+
+    <h2><span class="check">✅</span>6. Execute a aplicação</h2>
+    <p>No terminal, digite:</p>
+    <pre><code>npm start</code></pre>
+    <p>Seu conversor vai abrir em uma janela de desktop com Electron!</p>
+
+    <h2><span class="check">✅</span>Extras (Opcional)</h2>
+    <ul>
+      <li>🔧 Embutir ícone personalizado para o app</li>
+      <li>📦 Empacotar com <code>electron-packager</code> ou <code>electron-builder</code></li>
+      <li>🧭 Adicionar menus personalizados ou atalhos nativos</li>
+    </ul>
+  </main>
+
+  <footer>
+    &copy; 2025 - Guia de Desenvolvimento com Electron.js
+  </footer>
+</body>
+</html>
